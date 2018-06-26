@@ -21,6 +21,7 @@
             android:textColor="#FFF"
             android:gravity="left|center_vertical"/>
         <TextView
+            android:id="@+id/save"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -43,9 +44,12 @@
 
     <LinearLayout
         android:id="@+id/colorchoose"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical">
+        <include layout="@layout/image_color"/>
     <View
         android:id="@+id/devider"
         android:layout_above="@+id/bottom"
