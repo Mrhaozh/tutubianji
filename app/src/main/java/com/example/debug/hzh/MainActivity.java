@@ -1,5 +1,6 @@
 package com.example.debug.hzh;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
@@ -38,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         writetext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               textStickerView.setText("文字");
-               textStickerView.setTextColor(R.color.colorPrimary);
+              Intent intent =new Intent();
+              intent.setClass(MainActivity.this,EditTextView.class);
+              startActivityForResult(intent,222);
             }
         });
         cr_white=findViewById(R.id.cr_white);
@@ -94,6 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==222&&resultCode==111){
+            String text=data.getStringExtra("text");
+            textStickerView.setText(text);
+            textStickerView.setTextColor(R.color.colorPrimary);
+        }
+    }
 
     public void saveMyBitmap(File f, Bitmap mBitmap) throws IOException {
         try {
