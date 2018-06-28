@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private IMGColorRadio cr_white,cr_black,cr_cyan,cr_red,cr_yellow,cr_blue;
     private IMGColorGroup imgColorGroup;
     private TextStickerView textStickerView;
+    private String mText="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
               Intent intent =new Intent();
+              intent.putExtra("mText",mText);
               intent.setClass(MainActivity.this,EditTextView.class);
               startActivityForResult(intent,222);
             }
@@ -100,9 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==222&&resultCode==111){
-            String text=data.getStringExtra("text");
+            mText=data.getStringExtra("text");
+            String text=cutstr(mText);
             textStickerView.setText(text);
-            textStickerView.setTextColor(R.color.colorPrimary);
+            textStickerView.setTextColor(data.getIntExtra("color",R.color.colorPrimary));
         }
     }
 
@@ -124,5 +127,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         handWrite.color=imgColorGroup.getCheckColor();
+    }
+    private String cutstr(String text) {
+        if (text==null){
+            return "";
+        }
+        char[] strs=text.toCharArray();
+        StringBuilder sb=new StringBuilder();
+        for (int i = 0; i < strs.length; i++) {
+            sb.append(strs[i]);
+            if (i!=0&&(i+1)%17==0){
+                sb.append("\n");
+            }
+        }
+        String trim = sb.toString().trim();
+        return trim;
+
+
     }
 }

@@ -18,13 +18,18 @@ import android.widget.TextView;
 public class EditTextView extends AppCompatActivity{
     private TextView sub,back;
     private EditText edittext;
+    private IMGColorGroup imgColorGroup;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text_edit);
+        imgColorGroup=findViewById(R.id.cg_colors);
+        Intent intent=getIntent();
         sub=findViewById(R.id.sub);
         back=findViewById(R.id.back);
         edittext=findViewById(R.id.edittext);
+        edittext.setText(intent.getStringExtra("mText"));
+        edittext.setSelection(intent.getStringExtra("mText").length());
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +43,7 @@ public class EditTextView extends AppCompatActivity{
                 if(text!=null){
                 Intent intent =new Intent();
                 intent.putExtra("text",text);
+                intent.putExtra("color",imgColorGroup.getCheckColor());
                 setResult(111,intent);
                 finish();
                 }else{
@@ -47,4 +53,5 @@ public class EditTextView extends AppCompatActivity{
         });
 
     }
+
 }

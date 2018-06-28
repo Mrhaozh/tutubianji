@@ -247,6 +247,7 @@ public class TextStickerView extends View {
         for (int i = 0; i < mTextContents.size(); i++) {
             canvas.drawText(mTextContents.get(i), x, draw_text_y, mPaint);
             draw_text_y += text_height;
+
         }//end for i
         canvas.restore();
     }
@@ -341,7 +342,7 @@ public class TextStickerView extends View {
         if (mEditText != null) {
             mEditText.setText(null);
         }
-        //setText(null);
+        setText(null);
     }
 
 
