@@ -29,13 +29,17 @@
             android:textColor="#00FF00"
             android:gravity="right|center_vertical"/>
     </LinearLayout>
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/image"
         android:padding="@dimen/dp_5"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
+        <FrameLayout
+            android:id="@+id/mix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <com.example.debug.hzh.HandWrite
             android:id="@+id/handwrite"
             android:layout_width="match_parent"
@@ -44,7 +48,8 @@
             android:id="@+id/textstricker"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/colorchoose"

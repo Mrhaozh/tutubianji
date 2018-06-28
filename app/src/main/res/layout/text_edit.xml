@@ -30,18 +30,28 @@
     <EditText
         android:layout_below="@id/top"
         android:id="@+id/edittext"
+        android:textCursorDrawable="@drawable/shape_et_cursor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_20"
+        android:layout_height="match_parent"
+        android:gravity="left|top"
+        android:layout_margin="@dimen/dp_32"
         android:inputType="textMultiLine"
-        android:textColor="#FFF"/>
+        android:background="@null"
+        android:textColor="#00FF00"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center">
-
-        <include layout="@layout/image_color" />
+        android:layout_width="match_parent"
+        android:background="#000"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:orientation="vertical">
+        <include layout="@layout/image_color"/>
+        <View
+            android:id="@+id/devider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#666666"/>
     </LinearLayout>
+
 </RelativeLayout>

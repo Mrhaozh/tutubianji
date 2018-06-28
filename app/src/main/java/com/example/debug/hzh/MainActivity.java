@@ -2,14 +2,22 @@ package com.example.debug.hzh;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private IMGColorGroup imgColorGroup;
     private TextStickerView textStickerView;
     private String mText="";
+    private FrameLayout fmlayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         writetext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                colorchoose.setVisibility(View.GONE);
+                handWrite.trys=false;
               Intent intent =new Intent();
               intent.putExtra("mText",mText);
               intent.setClass(MainActivity.this,EditTextView.class);
               startActivityForResult(intent,222);
             }
         });
+        fmlayout=findViewById(R.id.mix);
         cr_white=findViewById(R.id.cr_white);
         cr_black=findViewById(R.id.cr_black);
         cr_blue=findViewById(R.id.cr_blue);
@@ -62,15 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File f = new File(Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/aaa.jpg");
-                try {
-
-                    saveMyBitmap(f, handWrite.new1Bitmap);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+              savebitmap(fmlayout);
+                Toast.makeText(MainActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
         });
         clear.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +147,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         String trim = sb.toString().trim();
         return trim;
-
-
+    }
+    private Bitmap savebitmap(FrameLayout view){
+        float width = view.getWidth();//取最大的宽度作为最终宽度
+        float height = view.getHeight();//计算总高度
+        Bitmap bitmap = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config
+                .ARGB_8888);//顶部图片
+        view.draw(new Canvas(bitmap));
+        return bitmap;
     }
 }

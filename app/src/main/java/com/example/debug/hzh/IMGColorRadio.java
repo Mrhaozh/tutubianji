@@ -17,7 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.widget.RadioButton;
 
-public class IMGColorRadio extends AppCompatRadioButton implements ValueAnimator.AnimatorUpdateListener {
+public class IMGColorRadio extends RadioButton implements ValueAnimator.AnimatorUpdateListener {
 
     private static final String TAG = "IMGColorRadio";
 

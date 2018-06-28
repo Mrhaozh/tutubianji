@@ -6,6 +6,7 @@ package com.example.debug.hzh;
  * description:
  */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class EditTextView extends AppCompatActivity{
+public class EditTextView extends Activity{
     private TextView sub,back;
     private EditText edittext;
     private IMGColorGroup imgColorGroup;
