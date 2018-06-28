@@ -11,8 +11,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +36,7 @@ public class HandWrite extends View
     float strokeWidth = 20f;
     private Rect mSrcRect, mDestRect;
     private int mTotalWidth, mTotalHeight,mBitWidth,mBitHeight;
+    private Matrix matrix = new Matrix();
     public HandWrite(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -62,7 +67,8 @@ public class HandWrite extends View
         int top = mTotalHeight/2 - mBitHeight / 2;
         mDestRect = new Rect(left, top, left + mBitWidth, top + mBitHeight);
             //canvas.drawBitmap(HandWriting(new1Bitmap), 0, 0, null);
-            canvas.drawBitmap(HandWriting(new1Bitmap), mSrcRect, mDestRect, null);
+           canvas.drawBitmap(HandWriting(new1Bitmap), mSrcRect, mDestRect, null);
+       // canvas.drawBitmap(writeText(), mSrcRect, mDestRect, null);
     }
 
     @Override
@@ -121,5 +127,21 @@ public class HandWrite extends View
 
         return super.onTouchEvent(event);
     }
+    /*
+    public Bitmap writeText() {
+          //  Bitmap bitmap = Bitmap.createScaledBitmap(originalBitmap, mTotalWidth, mTotalHeight, true);
+            textbitmap=Bitmap.createBitmap(mBitWidth,mBitHeight,Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(textbitmap);
+            TextPaint textPaint = new TextPaint();
+            textPaint.setColor(Color.BLACK);
+            textPaint.setTextSize(18 * getResources().getDisplayMetrics().density);
+            textPaint.setAntiAlias(true);
+            StaticLayout staticLayout = new StaticLayout("test", textPaint, mTotalWidth * 3 / 4, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+            canvas.translate(20,20 );
+            staticLayout.draw(canvas);
+            textwidth=staticLayout.getWidth();
+            textheight=staticLayout.getHeight();
+            return textbitmap;
+    }*/
 
 }

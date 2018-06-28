@@ -16,13 +16,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button clear,bichu;
+    private Button clear,bichu,writetext;
     private LinearLayout colorchoose;
     private HandWrite handWrite;
     private TextView save;
     private Color color;
     private IMGColorRadio cr_white,cr_black,cr_cyan,cr_red,cr_yellow,cr_blue;
     private IMGColorGroup imgColorGroup;
+    private TextStickerView textStickerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bichu=findViewById(R.id.bichu);
         save=findViewById(R.id.save);
         imgColorGroup=findViewById(R.id.cg_colors);
+        writetext=findViewById(R.id.writetext);
+        writetext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               textStickerView.setText("文字");
+               textStickerView.setTextColor(R.color.colorPrimary);
+            }
+        });
         cr_white=findViewById(R.id.cr_white);
         cr_black=findViewById(R.id.cr_black);
         cr_blue=findViewById(R.id.cr_blue);
@@ -45,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cr_blue.setOnClickListener(this);
         cr_black.setOnClickListener(this);
         cr_white.setOnClickListener(this);
+        textStickerView=findViewById(R.id.textstricker);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

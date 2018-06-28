@@ -29,7 +29,7 @@
             android:textColor="#00FF00"
             android:gravity="right|center_vertical"/>
     </LinearLayout>
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/image"
         android:padding="@dimen/dp_5"
         android:layout_width="match_parent"
@@ -40,7 +40,11 @@
             android:id="@+id/handwrite"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
+        <com.example.debug.hzh.TextStickerView
+            android:id="@+id/textstricker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/colorchoose"
@@ -87,6 +91,7 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/writetext"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="文字" />
