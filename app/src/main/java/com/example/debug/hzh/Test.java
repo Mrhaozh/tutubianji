@@ -2,7 +2,7 @@ package com.example.debug.hzh;
 /*
  * @author xy
  * @emil 384813636@qq.com
- * create at 2018/6/26
+ * create at 2018/7/3
  * description:
  */
 
@@ -14,18 +14,19 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextPaint;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
-public class HandWrite extends View
+public class Test extends View
 {
     Paint paint = null;
-    private Bitmap originalBitmap = null;
+    Bitmap originalBitmap = null;
     Bitmap new1Bitmap = null;
+    Bitmap new3Bitmap=null;
     boolean trys=false;
     private Bitmap new2Bitmap = null;
     private float clickX = 0,clickY = 0;
@@ -33,30 +34,30 @@ public class HandWrite extends View
     private boolean isMove = true;
     private boolean isClear = false;
     int color = Color.GREEN;
-    float strokeWidth = 20f;
+    float strokeWidth = 5f;
     private Rect mSrcRect, mDestRect;
     private int mTotalWidth, mTotalHeight,mBitWidth,mBitHeight;
-    private float mScale;
-    private Matrix matrix;
-    public HandWrite(Context context, AttributeSet attrs)
+    private Matrix matrix = new Matrix();
+
+    public Test(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image).copy(Bitmap.Config.ARGB_8888, true);
-        new1Bitmap = Bitmap.createBitmap(originalBitmap);
-        new2Bitmap=Bitmap.createBitmap(new1Bitmap.getWidth(),new1Bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        new3Bitmap = Bitmap.createBitmap(originalBitmap);
+        new1Bitmap=Bitmap.createBitmap(new3Bitmap.getWidth(),new3Bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         mBitWidth=new1Bitmap.getWidth();
         mBitHeight=new1Bitmap.getHeight();
         mSrcRect = new Rect(0, 0, mBitWidth, mBitHeight);
         mDestRect = new Rect(0, 0, mBitWidth, mBitHeight);
     }
-
-    public void setMatrix(Matrix matrix){
-        this.matrix=matrix;
+    public void getBitmap(Bitmap bitmap){
+        originalBitmap=bitmap;
     }
+
     public void clear(){
         isClear = true;
-       // new2Bitmap = Bitmap.createBitmap(originalBitmap);
-        new2Bitmap = Bitmap.createBitmap(originalBitmap);
+        // new2Bitmap = Bitmap.createBitmap(originalBitmap);
+        new2Bitmap = Bitmap.createBitmap(originalBitmap.getWidth(),originalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         invalidate();
     }
     public void setstyle(float strokeWidth){
@@ -70,11 +71,15 @@ public class HandWrite extends View
         // 计算上边位置
         int top = mTotalHeight/2 - mBitHeight / 2;
         mDestRect = new Rect(left, top, left + mBitWidth, top + mBitHeight);
-            //canvas.drawBitmap(HandWriting(new1Bitmap), 0, 0, null);
-           canvas.drawBitmap(HandWriting(new1Bitmap), mSrcRect, mDestRect, null);
-       // canvas.drawBitmap(writeText(), mSrcRect, mDestRect, null);
+        //canvas.drawBitmap(HandWriting(new1Bitmap), 0, 0, null);
+        canvas.drawBitmap(HandWriting(new1Bitmap), mSrcRect, mDestRect, null);
+        // canvas.drawBitmap(writeText(), mSrcRect, mDestRect, null);
     }
+    public Bitmap getBitmap(){
 
+        return HandWriting(new1Bitmap);
+
+    }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -112,6 +117,11 @@ public class HandWrite extends View
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event)
     {
         clickX = event.getX();
@@ -130,7 +140,7 @@ public class HandWrite extends View
             return true;
         }
 
-        return super.onTouchEvent(event);
+        return true;
     }
     /*
     public Bitmap writeText() {

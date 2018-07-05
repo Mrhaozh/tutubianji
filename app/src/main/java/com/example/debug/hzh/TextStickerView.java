@@ -15,8 +15,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.provider.SyncStateContract;
-import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -31,12 +29,9 @@ public class TextStickerView extends View {
     public static final float TEXT_SIZE_DEFAULT = 80;
     public static final int PADDING = 32;
     //public static final int PADDING = 0;
-
     public static final int TEXT_TOP_PADDING = 10;
 
     //public static final int CHAR_MIN_HEIGHT = 60;
-
-
     //private String mText;
     private TextPaint mPaint = new TextPaint();
     private Paint debugPaint = new Paint();
