@@ -250,7 +250,6 @@ public class TextStickerView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean ret = super.onTouchEvent(event);// 是否向下传递事件标志 true为消耗
-
         int action = event.getAction();
         float x = event.getX();
         float y = event.getY();
@@ -414,6 +413,4 @@ public class TextStickerView extends View {
             postInvalidate();
         }
     }
-
-
 }//end class

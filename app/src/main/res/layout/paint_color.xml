@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:padding="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<com.example.debug.hzh.IMGColorGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cg_colors"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center_horizontal"
+    android:checkedButton="@+id/cr_white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    >
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_white"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_white" />
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_black"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_black" />
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_red"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_red" />
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_cyan"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_cyan" />
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_yellow"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_yellow" />
+
+    <com.example.debug.hzh.IMGColorRadio
+        android:id="@+id/cr_blue"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        app:image_color="@color/image_color_blue" />
+</com.example.debug.hzh.IMGColorGroup>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    <ImageView
+        android:id="@+id/left"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        android:src="@drawable/left"/>
+    <ImageView
+        android:id="@+id/right"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_margin="@dimen/dp_6"
+        android:src="@drawable/right"/>
+    </LinearLayout>
+</LinearLayout>

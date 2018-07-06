@@ -10,16 +10,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class EditTextView extends Activity{
+public class EditTextView extends Activity implements View.OnClickListener{
     private TextView sub,back;
     private EditText edittext;
     private IMGColorGroup imgColorGroup;
+    private IMGColorRadio cr_white,cr_black,cr_cyan,cr_red,cr_yellow,cr_blue;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,22 @@ public class EditTextView extends Activity{
                 }
             }
         });
-
+        cr_white=findViewById(R.id.cr_white);
+        cr_black=findViewById(R.id.cr_black);
+        cr_blue=findViewById(R.id.cr_blue);
+        cr_cyan=findViewById(R.id.cr_cyan);
+        cr_red=findViewById(R.id.cr_red);
+        cr_yellow=findViewById(R.id.cr_yellow);
+        cr_yellow.setOnClickListener(this);
+        cr_red.setOnClickListener(this);
+        cr_cyan.setOnClickListener(this);
+        cr_blue.setOnClickListener(this);
+        cr_black.setOnClickListener(this);
+        cr_white.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        edittext.setTextColor(imgColorGroup.getCheckColor());
+    }
 }

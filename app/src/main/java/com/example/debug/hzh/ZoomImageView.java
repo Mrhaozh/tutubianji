@@ -409,6 +409,7 @@ public class ZoomImageView extends AppCompatImageView implements ScaleGestureDet
             mScaleMatrix.postScale(scale, scale, getWidth() / 2, getHeight() / 2);
             // 图片移动至屏幕中心
             setImageMatrix(mScaleMatrix);
+            onImageSetListener.onImageChange();
             once = false;
         }
     }
@@ -462,4 +463,11 @@ public class ZoomImageView extends AppCompatImageView implements ScaleGestureDet
         void onChange(float mScale,float dx,float dy);
     }
 
+    private OnImageSetListener onImageSetListener;
+    public void setOnImageSetListener(OnImageSetListener onImageSetListener){
+        this.onImageSetListener=onImageSetListener;
+    }
+    public interface  OnImageSetListener{
+        void onImageChange();
+    }
 }

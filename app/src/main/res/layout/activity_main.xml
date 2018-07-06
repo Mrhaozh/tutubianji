@@ -43,8 +43,8 @@
                 android:id="@+id/bgimg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/image"/>
-        <com.example.debug.hzh.Test
+                android:src="@drawable/timg"/>
+        <com.example.debug.hzh.GraffitiView
             android:id="@+id/handwrite"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -52,7 +52,6 @@
 
         <com.example.debug.hzh.TextStickerView
             android:id="@+id/textstricker"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -65,7 +64,7 @@
             android:layout_height="@dimen/dp_50"
             android:gravity="center"
             android:orientation="vertical">
-            <include layout="@layout/image_color"/>
+            <include layout="@layout/paint_color"/>
             <View
                 android:id="@+id/devider"
                 android:layout_above="@+id/bottom"

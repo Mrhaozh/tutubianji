@@ -43,15 +43,13 @@ public class Test extends View
     {
         super(context, attrs);
         originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image).copy(Bitmap.Config.ARGB_8888, true);
+        //originalBitmap =Bitmap.createBitmap(mTotalWidth,mTotalHeight,Bitmap.Config.ARGB_8888);
         new3Bitmap = Bitmap.createBitmap(originalBitmap);
         new1Bitmap=Bitmap.createBitmap(new3Bitmap.getWidth(),new3Bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         mBitWidth=new1Bitmap.getWidth();
         mBitHeight=new1Bitmap.getHeight();
         mSrcRect = new Rect(0, 0, mBitWidth, mBitHeight);
         mDestRect = new Rect(0, 0, mBitWidth, mBitHeight);
-    }
-    public void getBitmap(Bitmap bitmap){
-        originalBitmap=bitmap;
     }
 
     public void clear(){
@@ -71,15 +69,10 @@ public class Test extends View
         // 计算上边位置
         int top = mTotalHeight/2 - mBitHeight / 2;
         mDestRect = new Rect(left, top, left + mBitWidth, top + mBitHeight);
-        //canvas.drawBitmap(HandWriting(new1Bitmap), 0, 0, null);
         canvas.drawBitmap(HandWriting(new1Bitmap), mSrcRect, mDestRect, null);
         // canvas.drawBitmap(writeText(), mSrcRect, mDestRect, null);
     }
-    public Bitmap getBitmap(){
 
-        return HandWriting(new1Bitmap);
-
-    }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
