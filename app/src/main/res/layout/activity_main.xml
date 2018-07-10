@@ -90,11 +90,18 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <!--Button
                 android:id="@+id/bichu"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="笔触" />
+                android:text="笔触" /-->
+            <ImageButton
+                android:id="@+id/bichu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/pencial" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -102,23 +109,36 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <!--Button
                 android:id="@+id/writetext"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="文字" />
+                android:text="文字" /-->
+            <ImageButton
+                android:id="@+id/writetext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/text"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
-
-            <Button
+            <ImageButton
+                android:id="@+id/clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/reset"/>
+            <!--Button
                 android:id="@+id/clear"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="清屏" />
+                android:text="清屏" /-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -6,26 +6,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,7 +28,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         ZoomImageView.OnScaleChangeListener, ZoomImageView.OnImageSetListener {
-    private Button clear, bichu, writetext;
+    private ImageButton clear, bichu,writetext;
     private final float[] matrixValues = new float[9];
     private final float[] matrixValues2 = new float[9];
     private LinearLayout colorchoose;
@@ -42,13 +36,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView save;
     private Color color;
     private IMGColorRadio cr_white, cr_black, cr_cyan, cr_red, cr_yellow, cr_blue;
-    private ImageView left,right;
+    private ImageView left, right;
     private IMGColorGroup imgColorGroup;
     private TextStickerView textStickerView;
     private String mText = "";
     private FrameLayout fmlayout;
     private ZoomImageView bgimg;
 
+    private Bitmap bitmap1, bitmap2, bitmap3;
+    private Canvas mCanvas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cr_cyan = findViewById(R.id.cr_cyan);
         cr_red = findViewById(R.id.cr_red);
         cr_yellow = findViewById(R.id.cr_yellow);
-        left=findViewById(R.id.left);
-        right=findViewById(R.id.right);
+        left = findViewById(R.id.left);
+        right = findViewById(R.id.right);
         cr_yellow.setOnClickListener(this);
         cr_red.setOnClickListener(this);
         cr_cyan.setOnClickListener(this);
@@ -112,8 +108,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BitmapDrawable bd = (BitmapDrawable) bgimg.getDrawable();
+                bitmaprec(bd.getBitmap());
+                bitmaprec(bitmap1);
+                bitmaprec(bitmap2);
+                bitmaprec(bitmap3);
                 bgimg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable
                         .timg).copy(Bitmap.Config.ARGB_8888, false));
+
                 handWrite.clearall();
             }
         });
@@ -123,31 +125,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (colorchoose.getVisibility() == View.GONE) {
                     colorchoose.setVisibility(View.VISIBLE);
+                    bichu.setImageDrawable(getResources().getDrawable(R.drawable.pencial_select));
                     //imgColorGroup.getCheckColor();
+                    BitmapDrawable bd = (BitmapDrawable) bgimg.getDrawable();
+                    bitmaprec(bd.getBitmap());
                     handWrite.setVisibility(View.VISIBLE);
                     bgimg.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable
                             .timg).copy(Bitmap.Config.ARGB_8888, false));
                 } else {
                     colorchoose.setVisibility(View.GONE);
+                    bichu.setImageDrawable(getResources().getDrawable(R.drawable.pencial));
                     BitmapDrawable bd = (BitmapDrawable) bgimg.getDrawable();
-                    Bitmap bitmap2 = savebitmap(handWrite);
+                    bitmap2 = savebitmap(handWrite);
                     Matrix matrix = bgimg.mScaleMatrix;
                     matrix.getValues(matrixValues);
                     float scalex = matrixValues[Matrix.MSCALE_X];
                     float scaley = matrixValues[Matrix.MSCALE_Y];
                     float tranx = matrixValues[Matrix.MTRANS_X];
                     float trany = matrixValues[Matrix.MTRANS_Y];
-                 /* Matrix matrix2 = new Matrix();
+                    /* Matrix matrix2 = new Matrix();
                     matrix2.postScale(1f / scalex, 1f / scaley, 0, 0);
                     matrix2.postTranslate(-1 / scalex * tranx, -1 / scaley * trany);
-                  */
+                    */
                     //Log.e("123fff", "" + "x" + scalex + "y" + scaley + "x" + tranx + "y" + trany);
-                    Bitmap bitmap1 = bd.getBitmap();
-                    Bitmap bitmap3 = Bitmap.createBitmap(bitmap1.getWidth(), bitmap1.getHeight(),
+                    bitmap1 = bd.getBitmap();
+                    bitmap3 = Bitmap.createBitmap(bitmap1.getWidth(), bitmap1.getHeight(),
                             bitmap1.getConfig());
-                    Canvas canvas = new Canvas(bitmap3);
-                    canvas.drawBitmap(bitmap1, new Matrix(), null);
-                    canvas.drawBitmap(bitmap2, new Matrix(), null);
+                    mCanvas = new Canvas(bitmap3);
+                    mCanvas.drawBitmap(bitmap1, new Matrix(), null);
+                    mCanvas.drawBitmap(bitmap2, new Matrix(), null);
+                    bitmaprec(bitmap1);
+                    bitmaprec(bitmap2);
                     bgimg.setImageBitmap(bitmap3);
                     handWrite.setVisibility(View.GONE);
                 }
@@ -165,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 222 && resultCode == 111) {
             mText = data.getStringExtra("text");
-            String text = cutstr(mText);
-            textStickerView.setText(text);
+            textStickerView.setText(cutstr(mText));
             textStickerView.setTextColor(data.getIntExtra("color", R.color.colorPrimary));
         }
     }
@@ -209,9 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Bitmap savebitmap(View view) {
-        float width = view.getWidth();//取最大的宽度作为最终宽度
-        float height = view.getHeight();//计算总高度
-        Bitmap bitmap = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config
+        Bitmap bitmap = Bitmap.createBitmap((int)view.getWidth(), (int) view.getHeight(), Bitmap.Config
                 .ARGB_8888);//顶部图片
         view.draw(new Canvas(bitmap));
         return bitmap;
@@ -236,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onChange(float mScale, float dx, float dy) {
         Matrix matrix = bgimg.mScaleMatrix;
         matrix.getValues(matrixValues);
-
         // handWrite.setVisibility(View.GONE);
         float scalex = matrixValues[Matrix.MSCALE_X];
         float scaley = matrixValues[Matrix.MSCALE_Y];
@@ -291,6 +295,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             handWrite.setTranslationY(trany);
             handWrite.postInvalidate();
         }
+    }
 
+    public void bitmaprec(Bitmap mBitmap) {
+        if (mBitmap != null && !mBitmap.isRecycled()) {
+            mBitmap.recycle();
+            mBitmap = null;
+        }
+        System.gc();
     }
 }

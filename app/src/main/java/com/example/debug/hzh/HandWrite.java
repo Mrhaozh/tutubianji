@@ -142,7 +142,7 @@ public class HandWrite extends View
             textPaint.setTextSize(18 * getResources().getDisplayMetrics().density);
             textPaint.setAntiAlias(true);
             StaticLayout staticLayout = new StaticLayout("test", textPaint, mTotalWidth * 3 / 4, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-            canvas.translate(20,20 );
+            canvas.translate(20,20);
             staticLayout.draw(canvas);
             textwidth=staticLayout.getWidth();
             textheight=staticLayout.getHeight();
